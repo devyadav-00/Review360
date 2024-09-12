@@ -1,6 +1,8 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
+import { upload } from "../middlewares/multer.js";
+import uploadOnCloudinary from "../utils/cloudinary.js";
 
 
 const employeeRegister = async (req, res) => {
@@ -27,6 +29,22 @@ const employeeRegister = async (req, res) => {
                 message:"error in hashing password"
             });
         }
+        let imageUrl = null;
+if (req.file) {
+    try {
+        const localFilePath = req.file.path;
+        imageUrl = await uploadOnCloudinary(localFilePath); // Upload to Cloudinary and get URL
+        if (!imageUrl) {
+            throw new Error("Upload failed");
+        }
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Error uploading image"
+        });
+    }
+}
+
 
         const user = await User.create({
             firstname,
@@ -40,7 +58,7 @@ const employeeRegister = async (req, res) => {
             salary,
             remarks,
             managed_by,
-            image
+            file: imageUrl
         })
         return res.status(200).json({
             success: true,

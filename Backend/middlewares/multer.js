@@ -1,4 +1,5 @@
 import multer from "multer";
+import path from "path";
 
 const storage = multer.diskStorage({
     destination: function (req, file, callBack) {
@@ -6,7 +7,8 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, callBack) {
         const uniqueSuffix = Date.now();
-        callBack(null, file.originalname + "-" + uniqueSuffix)
+        const extension = path.extname(file.originalname);
+        callBack(null, file.originalname + "-" + uniqueSuffix + extension);
     }
 })
 
