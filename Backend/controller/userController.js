@@ -30,20 +30,20 @@ const employeeRegister = async (req, res) => {
             });
         }
         let imageUrl = null;
-if (req.file) {
-    try {
-        const localFilePath = req.file.path;
-        imageUrl = await uploadOnCloudinary(localFilePath); // Upload to Cloudinary and get URL
-        if (!imageUrl) {
-            throw new Error("Upload failed");
+        if (req.file) {
+            try {
+                const localFilePath = req.file.path;
+                imageUrl = await uploadOnCloudinary(localFilePath); // Upload to Cloudinary and get URL
+                if (!imageUrl) {
+                    throw new Error("Upload failed");
+                }
+            } catch (error) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Error uploading image"
+                });
+            }
         }
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Error uploading image"
-        });
-    }
-}
 
 
         const user = await User.create({

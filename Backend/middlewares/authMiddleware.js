@@ -28,6 +28,18 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
+
+
+const authorizeEmployer = (req, res, next) => {
+  if (req.user.role !== 'employer') {
+    return res.status(403).json({ message: "Access denied. Only employers can view all ratings." });
+  }
+  next();
+};
+
+
+
 export {
-    authenticateUser
+  authenticateUser,
+  authorizeEmployer
 }
