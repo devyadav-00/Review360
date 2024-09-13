@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     salary: { type: Number, required: true },
     remarks: { type: String },
     managed_by: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    file: { type: String }
+    image: { type: String }
 });
 
 const User = mongoose.model('User', userSchema);

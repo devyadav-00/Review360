@@ -7,7 +7,7 @@ import uploadOnCloudinary from "../utils/cloudinary.js";
 
 const employeeRegister = async (req, res) => {
     try {
-        const { firstname, lastname, email, password, role, gender, dob, phone, salary, remarks, managed_by, image } = req.body;
+        const { firstname, lastname, email, password, role, gender, dob, phone, salary, remarks, managed_by } = req.body;
         const existingUser = await User.findOne({ email });
         // console.log("data: ", firstname, lastname, email, password, role, gender, dob, phone, salary, remarks, managed_by, image)
 
@@ -58,7 +58,7 @@ const employeeRegister = async (req, res) => {
             salary,
             remarks,
             managed_by,
-            file: imageUrl
+            image: imageUrl
         })
         return res.status(200).json({
             success: true,
@@ -81,6 +81,7 @@ const employeeLogin = async (req, res) => {
     try {
         //data fetch
         const { email, password } = req.body;
+        console.log(req.body)
         //validation on email and password
         if (!email || !password)
         {
