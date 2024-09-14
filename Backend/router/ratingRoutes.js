@@ -8,6 +8,6 @@ const router = Router();
 
 router.post("/create", authenticateUser, createRating)
 router.get('/me', authenticateUser, getMyRatings);
-router.get('/ratings', authenticateUser, authorizeEmployer,  getAllRatings);
+router.get('/allRatings', authenticateUser, authorizeEmployer,  getAllRatings);
 
 export default router;

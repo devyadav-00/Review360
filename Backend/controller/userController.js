@@ -81,7 +81,7 @@ const employeeLogin = async (req, res) => {
     try {
         //data fetch
         const { email, password } = req.body;
-        console.log(req.body)
+        // console.log(req.body)
         //validation on email and password
         if (!email || !password)
         {
@@ -148,7 +148,15 @@ const employeeLogin = async (req, res) => {
 } 
 
 
+
+const employeeLogout = (req, res) => {
+    res.clearCookie('token');
+    res.status(200).json({ message: 'Logged out successfully.' });
+};
+  
+
 export {
     employeeRegister,
-    employeeLogin
+    employeeLogin,
+    employeeLogout
 }
