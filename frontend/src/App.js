@@ -1,12 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import HomePage from ".pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
-function App() {
+
+const App = () => {
   return (
     <div className="App">
-      <h1 className="text-pretty font-bold text-red-600">dev</h1>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/register" element= {<RegisterPage />}></Route>
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
