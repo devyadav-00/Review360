@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 
 const Registration = () => {
@@ -13,7 +13,7 @@ const Registration = () => {
     role: '',
     salary: '',
     remarks: '',
-    image: null,
+    image: null
   });
 
   const changeHandler = (e) => {
@@ -21,34 +21,36 @@ const Registration = () => {
     if (name === 'image') {
       setFormData({ ...formData, image: files[0] });
     } else {
-        setFormData({ ...formData, [name]: value });
-        console.log(name, ": ", value);
+      setFormData({ ...formData, [name]: value });
     }
-  };
+  }
 
   const handleSubmit = (e) => {
-    // Handle form submission
-  };
+    e.preventDefault();
+    // Handle form submission, such as sending the data to an API
+    console.log(formData);
+  }
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-700 pt-20 pb-4">
+    <div className="min-h-screen flex justify-center items-center bg-gray-400 pt-20 pb-4">
       <div className="container max-w-md p-8 bg-blue-200 shadow-lg rounded-lg">
         <h2 className="text-center text-2xl font-bold mb-6">Register</h2>
+
         <form onSubmit={handleSubmit}>
           <div className="flex gap-4 mb-4">
             <div className="w-1/2">
-              <label className="block text-gray-700">First Name</label>
+              <label className="block text-gray-800">First Name</label>
               <input
                 type="text"
                 name="firstname"
-                // value={formData.firstname}
                 onChange={changeHandler}
+                value={formData.firstname}
                 className="w-full p-2 border border-gray-300 rounded"
                 required
               />
             </div>
             <div className="w-1/2">
-              <label className="block text-gray-700">Last Name</label>
+              <label className="block text-gray-800">Last Name</label>
               <input
                 type="text"
                 name="lastname"
@@ -61,7 +63,7 @@ const Registration = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Gender</label>
+            <label className="block text-gray-800">Gender</label>
             <select
               name="gender"
               value={formData.gender}
@@ -77,7 +79,7 @@ const Registration = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Date of Birth</label>
+            <label className="block text-gray-800">Date of Birth</label>
             <input
               type="date"
               name="dob"
@@ -89,7 +91,7 @@ const Registration = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Email</label>
+            <label className="block text-gray-800">Email</label>
             <input
               type="email"
               name="email"
@@ -101,7 +103,7 @@ const Registration = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Password</label>
+            <label className="block text-gray-800">Password</label>
             <input
               type="password"
               name="password"
@@ -113,7 +115,7 @@ const Registration = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Phone</label>
+            <label className="block text-gray-800">Phone</label>
             <input
               type="text"
               name="phone"
@@ -125,7 +127,7 @@ const Registration = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Role</label>
+            <label className="block text-gray-800">Role</label>
             <input
               type="text"
               name="role"
@@ -137,7 +139,7 @@ const Registration = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Salary</label>
+            <label className="block text-gray-800">Salary</label>
             <input
               type="number"
               name="salary"
@@ -149,7 +151,7 @@ const Registration = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Remarks</label>
+            <label className="block text-gray-800">Remarks</label>
             <textarea
               name="remarks"
               value={formData.remarks}
@@ -159,7 +161,7 @@ const Registration = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Image</label>
+            <label className="block text-gray-800">Image</label>
             <input
               type="file"
               name="image"
@@ -177,10 +179,10 @@ const Registration = () => {
         </form>
 
         <div className="text-center mt-4">
-          <p className="text-gray-700">
+          <p className="text-gray-800">
             Already have an account?{' '}
             <Link to="/login" className="text-blue-500 hover:underline">
-                 Log in 
+              Log in
             </Link>
           </p>
         </div>
