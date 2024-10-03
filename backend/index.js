@@ -5,9 +5,10 @@ import ratingRouter from "./router/ratingRoutes.js"
 dotenv.config();
 import { dbConnect } from "./config/database.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 const app = express();
 
-
+app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({extended: false}))

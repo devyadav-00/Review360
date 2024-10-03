@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Registration = () => {
+  const navigate = useNavigate();  
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -23,13 +25,32 @@ const Registration = () => {
     } else {
       setFormData({ ...formData, [name]: value });
     }
-  }
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission, such as sending the data to an API
-    console.log(formData);
-  }
+    
+    const formDataToSend = new FormData();
+    for (let key in formData) {
+      formDataToSend.append(key, formData[key]);
+    }
+    console.log(formDataToSend);
+    
+
+    try {
+      const response = await axios.post('http://localhost:4000/api/v1/user/signup', formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      
+      console.log('Registration successful:', response.data);
+      navigate('/login');
+     
+    } catch (error) {
+      console.error('Registration failed:', error.response ? error.response.data : error.message);
+    }
+  };
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-400 pt-20 pb-4">
