@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { StoreContext } from "../context/StoreContext";
 
-const Navbar = ({user, setUser}) => {
+const Navbar = () => {
+
+  const { user, setUser } = useContext(StoreContext);
 
   // isLoggedIn
   const handleLogout = () => {

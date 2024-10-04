@@ -1,7 +1,7 @@
 import React from "react";
 import bgimage from "../assets/bgimage.jpg";
 
-const HomePage = ({user}) => {
+const HomePage = () => {
     return (
         <div
             className="h-screen flex items-center justify-center mt-16"

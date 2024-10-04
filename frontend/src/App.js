@@ -17,10 +17,10 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <Navbar user={user} setUser={setUser} />
+        <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage user={user} />}></Route>
-          <Route path="/login" element={<LoginPage user={user} setUser={setUser} />}></Route>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element= {<RegisterPage />}></Route>
         </Routes>
         <Footer />

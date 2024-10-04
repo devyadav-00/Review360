@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { StoreContext } from '../context/StoreContext';
 
-const LoginPage = ({user, setUser}) => {
+const LoginPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  
+  const { user, setUser } = useContext(StoreContext)
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -28,7 +31,8 @@ const LoginPage = ({user, setUser}) => {
       console.log('Login successful:', response.data);
       setUser(response.data);
       navigate('/');
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Login failed:', error.response ? error.response.data : error.message);
       setError('Login failed. Please check your credentials and try again.');
     }
