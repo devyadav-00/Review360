@@ -2,6 +2,7 @@ import React, { useState , useContext} from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { StoreContext } from "../context/StoreContext";
+import Cookies from 'js-cookie';
 
 const Navbar = () => {
 
@@ -9,8 +10,11 @@ const Navbar = () => {
 
   // isLoggedIn
   const handleLogout = () => {
-    setToken();
+    // Cookies.remove('token');
+    setToken(null);
   }
+  console.log("Token in context:", token);
+
 
   return (
     <nav className="bg-gray-300 p-3 shadow-lg fixed w-full top-0 z-50">

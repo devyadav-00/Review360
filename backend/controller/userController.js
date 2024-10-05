@@ -118,7 +118,8 @@ const employeeLogin = async (req, res) => {
 
             const options = {
                 expires: new Date(Date.now() + 2*60*60*1000), 
-                httpOnly: true, 
+                httpOnly: true,
+                sameSite: 'Strict',
             };
             res.cookie("token", token, options)
             .status(200)

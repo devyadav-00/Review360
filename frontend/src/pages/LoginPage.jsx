@@ -28,12 +28,12 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post('http://localhost:4000/api/v1/user/login', formData, { withCredentials: true });
-      console.log('Login successful:', response.data);
+      // console.log('Login successful:', response.data);
       setToken(response.data.token);
       navigate('/');
     }
     catch (error) {
-      console.error('Login failed:', error.response ? error.response.data : error.message);
+      // console.error('Login failed:', error.response ? error.response.data : error.message);
       setError('Login failed. Please check your credentials and try again.');
     }
   };
