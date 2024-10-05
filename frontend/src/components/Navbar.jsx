@@ -5,11 +5,11 @@ import { StoreContext } from "../context/StoreContext";
 
 const Navbar = () => {
 
-  const { user, setUser } = useContext(StoreContext);
+  const { token, setToken } = useContext(StoreContext);
 
   // isLoggedIn
   const handleLogout = () => {
-    setUser();
+    setToken();
   }
 
   return (
@@ -34,7 +34,7 @@ const Navbar = () => {
 
         {/* Right Side - Conditionally Render Login/Register or Logout */}
         <div className="flex justify-center items-center pr-6 space-x-4">
-          {!user ? (
+          {!token ? (
             <>
               <Link
                 // onClick={handleLogin}

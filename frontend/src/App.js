@@ -9,10 +9,6 @@ import Footer from "./components/Footer";
 
 const App = () => {
 
-  const [user, setUser] = useState();
-
-
-
 
   return (
     <div className="App">

@@ -153,10 +153,17 @@ const employeeLogout = (req, res) => {
     res.clearCookie('token');
     res.status(200).json({ message: 'Logged out successfully.' });
 };
-  
+
+
+const userData = (req, res) => {
+    res.status(200).json(
+        req.user
+    )
+}
 
 export {
     employeeRegister,
     employeeLogin,
-    employeeLogout
+    employeeLogout,
+    userData
 }

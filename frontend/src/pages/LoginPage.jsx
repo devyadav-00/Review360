@@ -9,7 +9,7 @@ const LoginPage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   
-  const { user, setUser } = useContext(StoreContext)
+  const { token, setToken } = useContext(StoreContext)
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -27,9 +27,9 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/user/login', formData);
+      const response = await axios.post('http://localhost:4000/api/v1/user/login', formData, { withCredentials: true });
       console.log('Login successful:', response.data);
-      setUser(response.data);
+      setToken(response.data.token);
       navigate('/');
     }
     catch (error) {

@@ -34,7 +34,7 @@ const Registration = () => {
     for (let key in formData) {
       formDataToSend.append(key, formData[key]);
     }
-    console.log(formDataToSend);
+    // console.log(formDataToSend);
     
 
     try {
@@ -44,10 +44,11 @@ const Registration = () => {
         }
       });
       
-      console.log('Registration successful:', response.data);
+      // console.log('Registration successful:', response.data);
       navigate('/login');
      
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Registration failed:', error.response ? error.response.data : error.message);
     }
   };
