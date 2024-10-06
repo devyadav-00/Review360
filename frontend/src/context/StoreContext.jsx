@@ -5,7 +5,7 @@ import axios from "axios";
 export const StoreContext = createContext();
 
 const StoreContextProvider = (props) => {
-  // const savedToken = Cookies.get('token') || null;
+
   const [token, setToken] = useState(null);
 
   useEffect(() => {
@@ -15,16 +15,15 @@ const StoreContextProvider = (props) => {
       })
       .then((profileData) => {
         if (profileData) {
-          console.log(profileData);
           setToken(true);
         }
       })
       .catch((e) => {
         console.log(e);
+        setToken(false);
       });
   }, []);
-  console.log("Token in context:", token);
-  // console.log(savedToken);
+  
 
   const contextValue = {
     token,
