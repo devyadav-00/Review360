@@ -18,7 +18,7 @@ const Footer = () => {
 
             <div className="">
                 <Link to="/contact" className="text-gray-800 font-medium text-lg">
-                    Contact
+                    Contact Us
                 </Link>
             </div>
       </div>

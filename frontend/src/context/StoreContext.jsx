@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import axios from "axios";
 
 export const StoreContext = createContext();
@@ -7,6 +6,7 @@ export const StoreContext = createContext();
 const StoreContextProvider = (props) => {
 
   const [token, setToken] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     axios
@@ -16,6 +16,7 @@ const StoreContextProvider = (props) => {
       .then((profileData) => {
         if (profileData) {
           setToken(true);
+          setUserData(profileData.data);
         }
       })
       .catch((e) => {
@@ -28,6 +29,8 @@ const StoreContextProvider = (props) => {
   const contextValue = {
     token,
     setToken,
+    userData,
+    setUserData,
   };
 
   return (

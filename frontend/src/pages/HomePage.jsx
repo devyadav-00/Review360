@@ -6,33 +6,33 @@ import { StoreContext } from "../context/StoreContext";
 import axios from "axios";
 
 const HomePage = () => {
-  const [user, setUser] = useState(null);
-  const { token, setToken } = useContext(StoreContext);
+  // const [user, setUser] = useState(null);
+  const { userData } = useContext(StoreContext);
 
-  useEffect(() => {
-    if (token) {
-      axios
-        .get("http://localhost:4000/api/v1/user/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        })
-        .then((response) => {
-          setUser(response.data);
-        })
-        .catch((error) => {
-          console.log("Error fetching user profile:", error);
-          if (error.response && error.response.status === 401) {
-            console.error("Unauthorized: Token might be expired or invalid.");
-            setUser(null); 
-            setToken(null);
-          }
-        });
-    } else {
-      setUser(null);
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     axios
+  //       .get("http://localhost:4000/api/v1/user/profile", {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         withCredentials: true,
+  //       })
+  //       .then((response) => {
+  //         setUser(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log("Error fetching user profile:", error);
+  //         if (error.response && error.response.status === 401) {
+  //           console.error("Unauthorized: Token might be expired or invalid.");
+  //           setUser(null); 
+  //           setToken(null);
+  //         }
+  //       });
+  //   } else {
+  //     setUser(null);
+  //   }
+  // }, [token]);
 
   return (
     <div
@@ -48,8 +48,8 @@ const HomePage = () => {
 
       {/* Conditional welcome message or user greeting */}
       <div className="relative z-10 text-white text-6xl font-extrabold mt-6 animate-fade-in tracking-wide drop-shadow-2xl transition-transform duration-300 transform hover:scale-110 hover:translate-y-[-4px]">
-        {user ? (
-          <>Hi, <span className="text-blue-300">{user.firstname} {user.lastname}!</span> Glad to have you back.</>
+        {userData ? (
+          <>Hi, <span className="text-blue-300">{userData.firstname} {userData.lastname}!</span> Glad to have you back.</>
         ) : (
           <>Welcome to <span className="text-blue-300">Employee Review System</span>!</>
         )}
@@ -84,7 +84,7 @@ const HomePage = () => {
         </div>
 
         {/* Call to Action Button at the bottom */}
-        {!user && (
+        {!userData && (
           <div className="mt-auto animate-bounce mb-10">
             <a
               href="/login"
