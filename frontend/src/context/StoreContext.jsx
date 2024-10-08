@@ -23,7 +23,7 @@ const StoreContextProvider = (props) => {
         console.log(e);
         setToken(false);
       });
-  }, []);
+  }, []); 
   
 
   const contextValue = {
