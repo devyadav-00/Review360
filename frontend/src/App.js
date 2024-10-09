@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import ManagerPage from "./pages/ManagerPage";
-// import EmployeePage from "./pages/EmployeePage";
+import EmployeePage from "./pages/EmployeePage";
 
 
 const App = () => {
@@ -24,8 +24,8 @@ const App = () => {
           <Route path="/register" element={<RegisterPage />}></Route>
           <Route path="/about" element={<AboutUs />}></Route>
           <Route path="/contact" element={<ContactUs />}></Route>
-          <Route path="/managerWork" element={<ManagerPage />}></Route>
-          {/* <Route path="/employeeWork" element={<EmployeePage />}></Route> */}
+          <Route path="/manager/dashboard" element={<ManagerPage />}></Route>
+          <Route path="/employee/dashboard" element={<EmployeePage />}></Route>
         </Routes>
         <Footer />
       </Router>

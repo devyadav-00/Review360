@@ -9,31 +9,6 @@ const HomePage = () => {
   // const [user, setUser] = useState(null);
   const { userData } = useContext(StoreContext);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     axios
-  //       .get("http://localhost:4000/api/v1/user/profile", {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         withCredentials: true,
-  //       })
-  //       .then((response) => {
-  //         setUser(response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log("Error fetching user profile:", error);
-  //         if (error.response && error.response.status === 401) {
-  //           console.error("Unauthorized: Token might be expired or invalid.");
-  //           setUser(null); 
-  //           setToken(null);
-  //         }
-  //       });
-  //   } else {
-  //     setUser(null);
-  //   }
-  // }, [token]);
-
   return (
     <div
       className="h-[140vh] flex flex-col items-center mt-16 px-6 text-center relative"

@@ -51,30 +51,37 @@ const getMyRatings = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
-  };
+};
   
 
-// get average ratings and data of the employee who rated and how much rating he/she given 
-// for each employee(for employer view)
+
   
+// get all ratings for a specific employee (for manager view)
+
 
 const getAllRatings = async (req, res) => {
   try {
+    const currentUserId = req.user._id;
 
-    // Fetching all ratings
+    const employeesUnderThisManager = await User.find({ managed_by: currentUserId })
+      .select('_id firstname lastname')
+      .lean();
+
+    // Fetch all ratings and populate ratedBy and ratedEmployee
     const ratings = await Rating.find()
       .populate('ratedBy', '_id firstname lastname')
-      .populate('ratedEmployee', '_id firstname lastname');
+      .populate('ratedEmployee', '_id firstname lastname managed_by')
+      .lean();
 
-    // Grouping ratings by employee
+    // Create a map to store ratings by employee ID
     const employeeRatingsMap = {};
 
+    // Group ratings by employee
     ratings.forEach(rating => {
       const employeeId = rating.ratedEmployee._id.toString();
-
+      
       if (!employeeRatingsMap[employeeId]) {
         employeeRatingsMap[employeeId] = {
-          employee: rating.ratedEmployee,
           ratings: [],
           totalRating: 0,
           ratingCount: 0,
@@ -92,14 +99,24 @@ const getAllRatings = async (req, res) => {
       employeeRatingsMap[employeeId].ratingCount += 1;
     });
 
-    // Calculate average rating for each employee
-    const employeeRatings = Object.values(employeeRatingsMap).map(employeeData => ({
-      employee: employeeData.employee,
-      averageRating: (employeeData.totalRating / employeeData.ratingCount).toFixed(2),
-      ratings: employeeData.ratings,
-    }));
+    // Ensure all employees under this manager are included in the response
+    const employeeRatings = employeesUnderThisManager.map(employee => {
+      const employeeId = employee._id.toString();
+      const ratingsData = employeeRatingsMap[employeeId] || {
+        ratings: [],
+        totalRating: 0,
+        ratingCount: 0,
+      };
 
-    // Send the grouped data as a response
+      return {
+        employee,
+        averageRating: (ratingsData.ratingCount > 0 ? (ratingsData.totalRating / ratingsData.ratingCount).toFixed(2) : '0.00'),
+        ratings: ratingsData.ratings,
+        message: ratingsData.ratings.length === 0 ? 'No ratings found' : '',
+      };
+    });
+
+    // Send the response
     res.status(200).json(employeeRatings);
   } catch (error) {
     res.status(500).json({ message: error.message });

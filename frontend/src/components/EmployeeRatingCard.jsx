@@ -1,8 +1,8 @@
 import React from "react";
-import RatingList from "./RatingList"; // Import the RatingList component
+import RatingList from "./RatingList";
 
 const EmployeeRatingCard = ({ employeeData }) => {
-//   console.log(employeeData);
+  // console.log(employeeData);
 
   return (
     <div className="container mx-auto p-6">
@@ -14,7 +14,7 @@ const EmployeeRatingCard = ({ employeeData }) => {
           <p>Average Rating: {data.averageRating} / 5</p>
 
           {/* Use the RatingList component to render ratings */}
-          <RatingList ratings={data.ratings} />
+           <RatingList ratings={data.ratings}/>
         </div>
       ))}
     </div>
