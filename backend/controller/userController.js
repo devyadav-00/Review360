@@ -162,9 +162,21 @@ const userData = (req, res) => {
     )
 }
 
+// Controller to get all managers
+const getManagers = async (req, res) => {
+  try {
+    const managers = await User.find({ role: 'Manager' }).select('firstname lastname _id');
+    res.status(200).json(managers);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching managers', error: error.message });
+  }
+};
+
+
 export {
     employeeRegister,
     employeeLogin,
     employeeLogout,
-    userData
+    userData,
+    getManagers
 }

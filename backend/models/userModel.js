@@ -6,12 +6,29 @@ const userSchema = new mongoose.Schema({
     gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
     dob: { type: Date, required: true },
     email: { type: String, required: true, unique: true },
-    password:{type: String, required: true},
+    password: { type: String, required: true },
     phone: { type: String, required: true },
-    role: { type: String, required: true },
+    role: { 
+        type: String, 
+        enum: [
+            'Manager', 
+            'Software Developer', 
+            'Software Developer Tester', 
+            'Data Analyst', 
+            'Data Scientist', 
+            'Project Manager', 
+            'HR Specialist', 
+            'UI/UX Designer', 
+            'DevOps Engineer', 
+            'System Administrator', 
+            'Product Manager', 
+            'Marketing Analyst'
+        ], 
+        required: true 
+    },
     salary: { type: Number, required: true },
     remarks: { type: String },
-    managed_by: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    managed_by: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },  // Assuming a manager is also a User
     image: { type: String }
 });
 

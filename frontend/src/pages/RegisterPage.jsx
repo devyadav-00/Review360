@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -15,8 +15,26 @@ const Registration = () => {
     role: '',
     salary: '',
     remarks: '',
+    managed_by: '',
     image: null
   });
+
+  const [showManagerOption, setShowManagerOption] = useState(false);
+  const [managers, setManagers] = useState([]);
+
+  useEffect(() => {
+    // Fetch managers from the server when the component mounts
+    const fetchManagers = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/api/v1/user/managers'); // API to get manager names
+        setManagers(response.data);
+      } catch (error) {
+        console.error('Failed to fetch managers:', error.response ? error.response.data : error.message);
+      }
+    };
+    
+    fetchManagers();
+  }, []);
 
   const changeHandler = (e) => {
     const { name, value, files } = e.target;
@@ -24,6 +42,16 @@ const Registration = () => {
       setFormData({ ...formData, image: files[0] });
     } else {
       setFormData({ ...formData, [name]: value });
+
+      if (name === 'role') {
+        setShowManagerOption(value !== 'Manager');
+        if (value === 'Manager') {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            managed_by: ''  // This line ensures managed_by is cleared when the role is Manager
+          }));
+        }
+      }
     }
   };
 
@@ -34,8 +62,6 @@ const Registration = () => {
     for (let key in formData) {
       formDataToSend.append(key, formData[key]);
     }
-    // console.log(formDataToSend);
-    
 
     try {
       const response = await axios.post('http://localhost:4000/api/v1/user/signup', formDataToSend, {
@@ -44,11 +70,9 @@ const Registration = () => {
         }
       });
       
-      // console.log('Registration successful:', response.data);
       navigate('/login');
      
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Registration failed:', error.response ? error.response.data : error.message);
     }
   };
@@ -150,15 +174,47 @@ const Registration = () => {
 
           <div className="mb-4">
             <label className="block text-gray-800">Role</label>
-            <input
-              type="text"
+            <select
               name="role"
               value={formData.role}
               onChange={changeHandler}
               className="w-full p-2 border border-gray-300 rounded"
               required
-            />
+            >
+              <option value="">Select Role</option>
+              <option value="Manager">Manager</option>
+              <option value="Software Developer">Software Developer</option>
+              <option value="Software Developer Tester">Software Developer Tester</option>
+              <option value="Data Analyst">Data Analyst</option>
+              <option value="Data Scientist">Data Scientist</option>
+              <option value="Project Manager">Project Manager</option>
+              <option value="HR Specialist">HR Specialist</option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+              <option value="DevOps Engineer">DevOps Engineer</option>
+              <option value="System Administrator">System Administrator</option>
+              <option value="Product Manager">Product Manager</option>
+              <option value="Marketing Analyst">Marketing Analyst</option>
+            </select>
           </div>
+
+          {showManagerOption && (
+            <div className="mb-4">
+              <label className="block text-gray-800">Managed By</label>
+              <select
+                name="managed_by"
+                value={formData.managed_by}
+                onChange={changeHandler}
+                className="w-full p-2 border border-gray-300 rounded"
+              >
+                <option value="">Select Manager</option>
+                {managers.map((manager) => (
+                  <option key={manager._id} value={manager._id}>
+                    {manager.firstname} {manager.lastname}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
           <div className="mb-4">
             <label className="block text-gray-800">Salary</label>
