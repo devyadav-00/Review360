@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { StoreContext } from "../context/StoreContext";
 import axios from "axios";
@@ -7,6 +7,7 @@ import axios from "axios";
 const Navbar = () => {
   const { userData, setUserData } = useContext(StoreContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -16,7 +17,10 @@ const Navbar = () => {
         { withCredentials: true }
       );
       console.log("Logout response:", response.data.message);
+
       setUserData(null);
+      navigate("/");
+      
     }
     catch (error) {
       console.error(

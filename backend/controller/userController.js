@@ -173,10 +173,32 @@ const getManagers = async (req, res) => {
 };
 
 
+// Controller to get all team members
+const getTeamMembers = async (req, res) => {
+    try {
+        // console.log(req.user);
+        
+      const managerId = req.user.managed_by;
+      
+      const allTeamMembers = await User.find({ managed_by: managerId })
+          .select('firstname lastname _id');
+        // console.log(teamMembers);
+        const teamMembers = allTeamMembers.filter(member => member._id.toString() !== req.user._id.toString());
+    
+  
+      res.status(200).json(teamMembers);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching team members', error: error.message });
+    }
+  };
+  
+
+
 export {
     employeeRegister,
     employeeLogin,
     employeeLogout,
     userData,
-    getManagers
+    getManagers,
+    getTeamMembers
 }

@@ -11,6 +11,8 @@ const LoginPage = () => {
   
   const { userData, setUserData } = useContext(StoreContext)
 
+  
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -28,9 +30,14 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post('http://localhost:4000/api/v1/user/login', formData, { withCredentials: true });
-      // console.log('Login successful:', response.data);
-      setUserData(response.data);
-      navigate('/');
+      // console.log('Login successful!');
+      setUserData(response.data.user);
+      // console.log(response.data.user);
+      if(response.data.user.role === 'Manager') {
+        navigate('/manager/dashboard');
+      } else{
+        navigate('/employee/dashboard');
+      }
     }
     catch (error) {
       // console.error('Login failed:', error.response ? error.response.data : error.message);

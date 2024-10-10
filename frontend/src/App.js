@@ -9,6 +9,8 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import ManagerPage from "./pages/ManagerPage";
 import EmployeePage from "./pages/EmployeePage";
+import RateEmployeePage from "./pages/RateEmployeePage";
+
 
 
 const App = () => {
@@ -26,6 +28,7 @@ const App = () => {
           <Route path="/contact" element={<ContactUs />}></Route>
           <Route path="/manager/dashboard" element={<ManagerPage />}></Route>
           <Route path="/employee/dashboard" element={<EmployeePage />}></Route>
+          <Route path="/rate-employee" element={<RateEmployeePage />} />
         </Routes>
         <Footer />
       </Router>
