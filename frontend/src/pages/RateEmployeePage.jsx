@@ -36,8 +36,13 @@ const RateEmployeePage = () => {
       return;
     }
 
+    if (ratingValue < 1 || ratingValue > 5) {
+      setErrorMessage("Rating must be between 1 and 5.");
+      return;
+    }
+
     try {
-      await axios.post(
+      const response = await axios.post(
         "http://localhost:4000/api/v1/rating/create",
         {
           ratedEmployee: selectedEmployee,
@@ -46,20 +51,25 @@ const RateEmployeePage = () => {
         },
         { withCredentials: true }
       );
-      setSuccessMessage("Rating submitted successfully!");
+      
+      setSuccessMessage(response.data.message || "Rating submitted successfully!");
       setErrorMessage("");
       setSelectedEmployee("");
-      setRatingValue('');
+      setRatingValue(undefined);
       setReview("");
     } catch (error) {
-      console.error("Error submitting rating:", error);
-      setErrorMessage("Error submitting rating.");
+      // If the backend sends an error message, display it
+      if (error.response && error.response.data && error.response.data.message) {
+        setErrorMessage(error.response.data.message);  // Display the backend message
+      } else {
+        setErrorMessage("Error submitting rating.");
+      }
       setSuccessMessage("");
     }
   };
 
   return (
-    <div className="max-w-md mx-auto my-6 mt-20 bg-gray-300 shadow-md p-6 rounded-lg">
+    <div className="max-w-md mb-8 mx-auto my-6 mt-24 bg-gray-300 shadow-md p-6 rounded-lg">
       <h1 className="text-2xl font-semibold text-center text-gray-800">
         Rate a Team Member
       </h1>

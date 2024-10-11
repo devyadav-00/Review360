@@ -4,36 +4,48 @@ import User from "../models/userModel.js";
 // creating a new rating
 
 const createRating = async (req, res) => {
-    try{
-        const { ratingValue, review, ratedEmployee } = req.body;
-        const ratedBy = req.user._id;
-        // console.log("req.user: ", req.user);
+  try {
+      const { ratingValue, review, ratedEmployee } = req.body;
+      const ratedBy = req.user._id;
 
-        if (ratedBy.toString() === ratedEmployee)
-        {
-            return res.status(400).json({
-                message: "You cannot rate yourSelf."
-            });
-        }
-        const newRating = new Rating({
-            ratingValue,
-            review,
-            ratedBy,
-            ratedEmployee
-        });
-        await newRating.save();
-        return res.status(201).json({
-            message:"Rating submitted succesfully"
-        });
-    }
-    catch (error)
-    {
-        res.status(500).json({
-            message:error.message
-        });
-    }
+      // Prevent rating yourself
+      if (ratedBy.toString() === ratedEmployee) {
+          return res.status(400).json({
+              message: "You cannot rate yourself."
+          });
+      }
 
+      // Check if the employee has already rated this employee
+      const existingRating = await Rating.findOne({
+          ratedBy: ratedBy,
+          ratedEmployee: ratedEmployee
+      });
+
+      if (existingRating) {
+          return res.status(400).json({
+              message: "You have already rated this employee."
+          });
+      }
+
+      // Create a new rating if no existing rating is found
+      const newRating = new Rating({
+          ratingValue,
+          review,
+          ratedBy,
+          ratedEmployee
+      });
+      await newRating.save();
+
+      return res.status(201).json({
+          message: "Rating submitted successfully"
+      });
+  } catch (error) {
+      res.status(500).json({
+          message: error.message
+      });
+  }
 }
+
 
 // get all ratings for a specific employee (for employee view)
 

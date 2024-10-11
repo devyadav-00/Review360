@@ -194,11 +194,77 @@ const getTeamMembers = async (req, res) => {
   
 
 
+
+  // employeeUpadateProfile controller added
+
+
+  const employeeUpdateProfile = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const { dob, phone } = req.body;
+
+        // Find the user by ID
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        // Update the user's fields
+        user.dob = dob || user.dob;
+        user.phone = phone || user.phone;
+
+        // Handle image upload if a new file is provided
+        let imageUrl = user.image; // Keep the existing image URL if no new image is uploaded
+        if (req.file) {
+            try {
+                const localFilePath = req.file.path;
+                imageUrl = await uploadOnCloudinary(localFilePath); // Upload to Cloudinary and get URL
+                if (!imageUrl) {
+                    throw new Error("Upload failed");
+                }
+            } catch (error) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Error uploading image",
+                });
+            }
+        }
+
+        // Update the image URL
+        user.image = imageUrl;
+
+        // Save the updated user
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            user,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Profile cannot be updated, please try again later",
+        });
+    }
+};
+
+
+
+
+
+
+
 export {
     employeeRegister,
     employeeLogin,
     employeeLogout,
     userData,
     getManagers,
-    getTeamMembers
+    getTeamMembers,
+    employeeUpdateProfile
 }

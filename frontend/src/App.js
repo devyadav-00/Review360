@@ -10,11 +10,12 @@ import ContactUs from "./pages/ContactUs";
 import ManagerPage from "./pages/ManagerPage";
 import EmployeePage from "./pages/EmployeePage";
 import RateEmployeePage from "./pages/RateEmployeePage";
+import ProfilePage from "./pages/ProfilePage";
+import UpdateProfilePage from "./pages/UpdateProfilePage";
 
 
 
 const App = () => {
-
 
   return (
     <div className="App">
@@ -29,6 +30,8 @@ const App = () => {
           <Route path="/manager/dashboard" element={<ManagerPage />}></Route>
           <Route path="/employee/dashboard" element={<EmployeePage />}></Route>
           <Route path="/rate-employee" element={<RateEmployeePage />} />
+          <Route path="/my-profile" element={<ProfilePage />} />
+          <Route path="/update-profile" element={<UpdateProfilePage />} />
         </Routes>
         <Footer />
       </Router>

@@ -35,35 +35,51 @@ const EmployeePage = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600"></div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="text-center text-red-500">Error: {error}</div>;
   }
 
   return (
-    <div className="max-w-md mx-auto mt-10 h-[100vh] bg-white shadow-md pt-60 p-6 rounded-lg">
-      <h1 className="text-2xl font-semibold text-center text-gray-800">
-        My Average Rating
-      </h1>
+    <div className="flex items-center justify-center h-screen"> 
+      <div className="max-w-xl mx-auto min-h-[60vh] bg-gradient-to-b from-indigo-100 via-white to-purple-100 shadow-lg rounded-lg p-10 transform transition-all hover:scale-105 duration-500">
+        <h1 className="text-4xl font-bold text-center text-indigo-700">
+          My Average Rating
+        </h1>
 
-      <div className="mt-4 text-center text-gray-600 text-lg">
-        {averageRating !== null ? (
-          <RatingCard averageRating={averageRating.toFixed(2)} />
-        ) : (
-          "No ratings available"
-        )}
-      </div>
+        <div className="mt-8 text-center">
+          {averageRating !== null ? (
+            <div className="flex justify-center">
+              <RatingCard averageRating={averageRating.toFixed(2)} />
+            </div>
+          ) : (
+            <p className="text-gray-500 text-md">No ratings available</p>
+          )}
+        </div>
 
-      {/* Button to rate another team member */}
-      <div className="mt-6 text-center">
-        <button
-          onClick={() => navigate("/rate-employee")}
-          className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform transition duration-300 hover:scale-105"
-        >
-          Rate a Team Member
-        </button>
+        <div className="mt-8 text-center">
+          <button
+            onClick={() => navigate("/rate-employee")}
+            className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-3 px-10 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110"
+          >
+            Rate a Team Member
+          </button>
+        </div>
+
+        <div className="mt-8 text-center">
+          <button
+            onClick={() => navigate("/my-profile")}
+            className="text-indigo-600 hover:text-purple-600 font-bold underline"
+          >
+            Back to Profile
+          </button>
+        </div>
       </div>
     </div>
   );
