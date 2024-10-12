@@ -130,16 +130,22 @@ const UpdateProfilePage = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700" htmlFor="phone">Phone</label>
-            <input
-              type="text"
-              name="phone"
-              id="phone"
-              value={newFormData.phone}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
+  <label className="block text-gray-700" htmlFor="phone">Phone</label>
+  <input
+    type="text"
+    name="phone"
+    id="phone"
+    value={newFormData.phone}
+    onChange={handleChange}
+    className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+    maxLength="10" // Limits input to 10 characters
+    minLength="10" // Requires minimum 10 characters
+    pattern="[0-9]*" // Ensures only numeric input
+    inputMode="numeric" // Optimizes input field for numeric keyboards on mobile
+    required // Makes it mandatory to fill
+  />
+</div>
+
           <div className="mb-4">
             <label className="block text-gray-700" htmlFor="dob">Date of Birth</label>
             <input
