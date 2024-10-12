@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const RateEmployeePage = () => {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState("");
-  const [ratingValue, setRatingValue] = useState();
+  const [ratingValue, setRatingValue] = useState("");
   const [review, setReview] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -15,9 +16,12 @@ const RateEmployeePage = () => {
     // Fetch the list of employees to rate
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/v1/user/teamMembers", {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          "http://localhost:4000/api/v1/user/teamMembers",
+          {
+            withCredentials: true,
+          }
+        );
         setEmployees(response.data);
       } catch (error) {
         console.error("Error fetching employees:", error);
@@ -27,6 +31,18 @@ const RateEmployeePage = () => {
 
     fetchEmployees();
   }, []);
+
+  // useEffect(() => {
+  //   // Clear the success or error message after 5 seconds
+  //   if (successMessage || errorMessage) {
+  //     const timer = setTimeout(() => {
+  //       setSuccessMessage("");
+  //       setErrorMessage("");
+  //     }, 5000); // 5 seconds timeout
+
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [successMessage, errorMessage]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,16 +67,17 @@ const RateEmployeePage = () => {
         },
         { withCredentials: true }
       );
-      
-      setSuccessMessage(response.data.message || "Rating submitted successfully!");
+
+      setSuccessMessage(response.data.message);
+      toast.success(response.data.message);
       setErrorMessage("");
       setSelectedEmployee("");
-      setRatingValue(undefined);
+      setRatingValue("");
       setReview("");
     } catch (error) {
-      // If the backend sends an error message, display it
       if (error.response && error.response.data && error.response.data.message) {
-        setErrorMessage(error.response.data.message);  // Display the backend message
+        setErrorMessage(error.response.data.message);
+        toast.error(error.response.data.message)     // Display the backend message
       } else {
         setErrorMessage("Error submitting rating.");
       }
@@ -74,8 +91,13 @@ const RateEmployeePage = () => {
         Rate a Team Member
       </h1>
 
-      {errorMessage && <p className="text-red-500 text-center mt-4">{errorMessage}</p>}
-      {successMessage && <p className="text-green-500 text-center mt-4">{successMessage}</p>}
+      {/* Display success and error messages */}
+      {/* {errorMessage && (
+        <p className="text-red-500 text-center mt-4">{errorMessage}</p>
+      )}
+      {successMessage && (
+        <p className="text-green-500 text-center mt-4">{successMessage}</p>
+      )} */}
 
       <form onSubmit={handleSubmit} className="mt-6">
         {/* Dropdown to select an employee */}
@@ -86,6 +108,7 @@ const RateEmployeePage = () => {
           value={selectedEmployee}
           onChange={(e) => setSelectedEmployee(e.target.value)}
           className="block w-full p-2 border border-gray-300 rounded-lg mb-4"
+          required
         >
           <option value="">-- Select an Employee --</option>
           {employees.map((employee) => (
@@ -105,6 +128,7 @@ const RateEmployeePage = () => {
           max="5"
           placeholder="Enter rating (1-5)"
           className="block w-full p-2 border border-gray-300 rounded-lg mb-4"
+          required
         />
 
         {/* Review input */}
@@ -114,6 +138,7 @@ const RateEmployeePage = () => {
           onChange={(e) => setReview(e.target.value)}
           className="block w-full p-2 border border-gray-300 rounded-lg mb-4"
           placeholder="Write your review"
+          required
         ></textarea>
 
         {/* Submit button */}

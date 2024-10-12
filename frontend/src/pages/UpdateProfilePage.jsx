@@ -1,59 +1,115 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
 import axios from "axios";
+import { toast } from "react-toastify";
+import Loading  from "../components/Loader";
 
-const EditProfilePage = () => {
+
+const UpdateProfilePage = () => {
+  const navigate = useNavigate();
   const { userData, setUserData } = useContext(StoreContext);
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
-    phone: userData.phone || "",  // Initialize with empty string if undefined
-    dob: userData.dob || "",      // Initialize with empty string if undefined
+    phone: "",
+    dob: "",
     image: null,
   });
 
-  console.log(userData);
-  const navigate = useNavigate();
+  const [newFormData, setNewFormData] = useState({
+    phone: "",
+    dob: "",
+    image: null,
+  });
+
+  useEffect(() => {
+    if (userData) {
+      setFormData({
+        phone: userData.phone,
+        dob: userData.dob,
+        image: userData.image,
+      });
+      setNewFormData({
+        phone: userData.phone,
+        dob: new Date(userData.dob).toISOString().split("T")[0],
+        image: null,
+      });
+    }
+  }, [userData]);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-
     if (type === "file") {
-      setFormData({ ...formData, image: files[0] });
+      setNewFormData({ ...newFormData, image: files[0] });
     } else {
-      setFormData({ ...formData, [name]: value });
+      setNewFormData({ ...newFormData, [name]: value });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    if (!newFormData.dob && !newFormData.image && !newFormData.phone) {
+      toast.error("Please fill at least one field to update your profile."); // Use toast for alerts
+      return;
+    }
+
     const formDataToSend = new FormData();
 
-    // Append form data
-    formDataToSend.append("phone", formData.phone);
-    formDataToSend.append("dob", formData.dob);
-    if (formData.image) {
-      formDataToSend.append("image", formData.image);
+    if (newFormData.phone) {
+      formDataToSend.append("phone", newFormData.phone);
+    } else {
+      formDataToSend.append("phone", userData.phone);
+    }
+    if (newFormData.dob) {
+      formDataToSend.append("dob", newFormData.dob);
+    } else {
+      formDataToSend.append("dob", userData.dob);
+    }
+    if (newFormData.image) {
+      formDataToSend.append("image", newFormData.image);
+    } else {
+      formDataToSend.append("image", userData.image);
     }
 
     try {
       const response = await axios.put(
         "http://localhost:4000/api/v1/user/updateProfile",
         formDataToSend,
-        { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
-      setUserData(response.data);
+      setUserData(response.data.user);
+      // console.log("Profile updated successfully:", response.data.message);
+      toast.success(response.data.message); 
       navigate("/my-profile");
     } catch (error) {
       console.error("Error updating profile:", error);
+      toast.error("Error updating profile!");
     }
+    finally {
+      setLoading(false);
+    } 
   };
 
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">Edit Profile</h1>
+    <div className="flex relative items-center justify-center min-h-[100] pt-20 pb-14">
+      {loading && (
+        <div className="absolute w-full z-10">
+          <Loading />
+        </div>
+      )}
+      <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 mt-10 border-gray-300 border-2">
+        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">Update Profile</h1>
         <form onSubmit={handleSubmit}>
-          {/* Display all user data */}
           <div className="mb-4 flex space-x-4">
             <div className="flex-1">
               <label className="block text-gray-700">First Name</label>
@@ -72,18 +128,16 @@ const EditProfilePage = () => {
             <label className="block text-gray-700">Role</label>
             <p className="mt-1 text-gray-600">{userData.role}</p>
           </div>
-          
-          {/* Editable fields */}
+
           <div className="mb-4">
             <label className="block text-gray-700" htmlFor="phone">Phone</label>
             <input
               type="text"
               name="phone"
               id="phone"
-              value={formData.phone}
+              value={newFormData.phone}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-              required
             />
           </div>
           <div className="mb-4">
@@ -92,10 +146,9 @@ const EditProfilePage = () => {
               type="date"
               name="dob"
               id="dob"
-              value={formData.dob}
+              value={newFormData.dob}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-              required
             />
           </div>
           <div className="mb-4">
@@ -107,9 +160,9 @@ const EditProfilePage = () => {
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               accept="image/*"
-              required
             />
           </div>
+
           <div className="mt-8 text-center">
             <button
               type="submit"
@@ -124,4 +177,4 @@ const EditProfilePage = () => {
   );
 };
 
-export default EditProfilePage;
+export default UpdateProfilePage;

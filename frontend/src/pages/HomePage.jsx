@@ -3,11 +3,17 @@ import bgimage from "../assets/bgimage.jpg";
 import teamImage from "../assets/team.jpeg";
 import reviewImage from "../assets/review.jpeg";
 import { StoreContext } from "../context/StoreContext";
-import axios from "axios";
+
+
 
 const HomePage = () => {
   // const [user, setUser] = useState(null);
+
   const { userData } = useContext(StoreContext);
+  // console.log(userData);
+
+  
+  
 
   return (
     <div

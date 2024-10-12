@@ -4,6 +4,8 @@ import logo from "../assets/logo.png";
 import { StoreContext } from "../context/StoreContext";
 import axios from "axios";
 import { IoIosArrowDown } from "react-icons/io";
+import { toast } from "react-toastify";
+
 
 const Navbar = () => {
   const { userData, setUserData } = useContext(StoreContext);
@@ -17,7 +19,8 @@ const Navbar = () => {
         {},
         { withCredentials: true }
       );
-      console.log("Logout response:", response.data.message);
+      // console.log("Logout response:", response.data.message);
+      toast.success(response.data.message);
 
       setUserData(null);
       navigate("/");
@@ -118,13 +121,16 @@ const Navbar = () => {
                         : "/employee/dashboard"
                     }
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                    onClick={() => setDropdownOpen(false)}
+                    onClick={() => setDropdownOpen(false)} 
                   >
                     Dashboard
                   </Link>
 
                   <button
-                    onClick={handleLogout}
+                    onClick={() => {
+                      handleLogout();
+                      setDropdownOpen(false);
+                    }}
                     className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
                   >
                     Logout

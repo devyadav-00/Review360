@@ -77,7 +77,7 @@ const EmployeePage = () => {
             onClick={() => navigate("/my-profile")}
             className="text-indigo-600 hover:text-purple-600 font-bold underline"
           >
-            Back to Profile
+            Go to Profile
           </button>
         </div>
       </div>

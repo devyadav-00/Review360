@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { StoreContext } from "../context/StoreContext";
@@ -8,10 +8,18 @@ const ProfilePage = () => {
   const { userData } = useContext(StoreContext);
 
   // Redirect to login if userData is not available
-  if (!userData) {
-    navigate("/login");
-    return null; // Return null to avoid rendering the rest of the component
-  }
+  useEffect(() => {
+    if (!userData) {
+      navigate("/login");
+    }
+  }, []);
+  // if (!userData) {
+  //   navigate("/login");
+  //   return null; // Return null to avoid rendering the rest of the component
+  // }
+
+  // console.log(userData);
+  
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -39,7 +47,7 @@ const ProfilePage = () => {
           </div>
           <div>
             <h2 className="text-lg font-semibold text-gray-700">Date of Birth:</h2>
-            <p className="text-gray-600">{userData.dob}</p>
+            <p className="text-gray-600">{new Date(userData?.dob)?.toISOString()?.split("T")[0] || ""}</p>
           </div>
           <div>
             <h2 className="text-lg font-semibold text-gray-700">Gender:</h2>

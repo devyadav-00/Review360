@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import EmployeeRatingCard from "../components/EmployeeRatingCard";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { StoreContext } from "../context/StoreContext";
 
 const ManagerPage = () => {
@@ -10,7 +9,7 @@ const ManagerPage = () => {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-  const { userData, setUserData } = useContext(StoreContext);
+  const { userData } = useContext(StoreContext);
   if (!userData) {
     navigate("/login");
   }
@@ -34,20 +33,28 @@ const ManagerPage = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="loader"></div>
+        <p className="text-lg font-semibold ml-4 text-gray-700">Loading...</p>
+      </div>
+    );
   }
 
   return (
-    <div className="container mx-auto p-6 pt-20 min-h-[100vh]">
-      <h1 className="text-3xl font-bold mb-6">Manager Dashboard</h1>
+    <div className="container mx-auto p-6 pt-20 min-h-[100vh] bg-gradient-to-br from-indigo-200 to-blue-300">
+      <h1 className="text-5xl font-extrabold text-center text-gray-800 mb-8 drop-shadow-lg">
+        Manager Dashboard
+      </h1>
 
-      {/* Employees ratings using EmployeeRatingCard component */}
-      <div>
-        <h2 className="text-2xl font-semibold">Employee Ratings</h2>
+      <div className="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 hover:shadow-xl">
+        <h2 className="text-4xl font-semibold text-gray-800 mb-4 border-b-4 border-indigo-600 pb-2">
+          Employee Ratings
+        </h2>
         {employeeRatings.length > 0 ? (
-          <EmployeeRatingCard employeeData={employeeRatings} /> /* Pass data to the component */
+          <EmployeeRatingCard employeeData={employeeRatings} />
         ) : (
-          <p>No ratings found for employees.</p>
+          <p className="text-gray-600 text-lg">No ratings found for employees.</p>
         )}
       </div>
     </div>

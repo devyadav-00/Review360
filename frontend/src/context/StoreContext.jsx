@@ -17,12 +17,15 @@ const StoreContextProvider = (props) => {
         if (profileData) {
           setToken(true);
           setUserData(profileData.data);
+          // console.log(profileData.data);
+          
         }
       })
       .catch((e) => {
         console.log(e);
         setToken(false);
       });
+    
   }, []); 
 
   
