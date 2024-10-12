@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Loading  from "../components/Loader";
-
+import Loading from "../components/Loader";
 
 const UpdateProfilePage = () => {
   const navigate = useNavigate();
@@ -85,15 +84,14 @@ const UpdateProfilePage = () => {
       );
       setUserData(response.data.user);
       // console.log("Profile updated successfully:", response.data.message);
-      toast.success(response.data.message); 
+      toast.success(response.data.message);
       navigate("/my-profile");
     } catch (error) {
       console.error("Error updating profile:", error);
       toast.error("Error updating profile!");
-    }
-    finally {
+    } finally {
       setLoading(false);
-    } 
+    }
   };
 
   if (!userData) {
@@ -108,7 +106,9 @@ const UpdateProfilePage = () => {
         </div>
       )}
       <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 mt-10 border-gray-300 border-2">
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">Update Profile</h1>
+        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
+          Update Profile
+        </h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4 flex space-x-4">
             <div className="flex-1">
@@ -130,24 +130,27 @@ const UpdateProfilePage = () => {
           </div>
 
           <div className="mb-4">
-  <label className="block text-gray-700" htmlFor="phone">Phone</label>
-  <input
-    type="text"
-    name="phone"
-    id="phone"
-    value={newFormData.phone}
-    onChange={handleChange}
-    className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-    maxLength="10" // Limits input to 10 characters
-    minLength="10" // Requires minimum 10 characters
-    pattern="[0-9]*" // Ensures only numeric input
-    inputMode="numeric" // Optimizes input field for numeric keyboards on mobile
-    required // Makes it mandatory to fill
-  />
-</div>
+            <label className="block text-gray-700" htmlFor="phone">
+              Phone
+            </label>
+            <input
+              type="text"
+              name="phone"
+              id="phone"
+              value={newFormData.phone}
+              onChange={handleChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              maxLength="10"
+              minLength="10"
+              pattern="[0-9]*"
+              inputMode="numeric"
+            />
+          </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700" htmlFor="dob">Date of Birth</label>
+            <label className="block text-gray-700" htmlFor="dob">
+              Date of Birth
+            </label>
             <input
               type="date"
               name="dob"
@@ -158,7 +161,9 @@ const UpdateProfilePage = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700" htmlFor="image">Profile Image</label>
+            <label className="block text-gray-700" htmlFor="image">
+              Profile Image
+            </label>
             <input
               type="file"
               name="image"
