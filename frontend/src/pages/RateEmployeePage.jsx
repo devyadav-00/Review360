@@ -110,7 +110,7 @@ const RateEmployeePage = () => {
           className="block w-full p-2 border border-gray-300 rounded-lg mb-4"
           required
         >
-          <option value="">-- Select an Employee --</option>
+          <option value="">-- Select a Team Member --</option>
           {employees.map((employee) => (
             <option key={employee._id} value={employee._id}>
               {employee.firstname} {employee.lastname}
