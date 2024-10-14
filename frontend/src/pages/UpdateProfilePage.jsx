@@ -26,12 +26,12 @@ const UpdateProfilePage = () => {
     if (userData) {
       setFormData({
         phone: userData.phone,
-        dob: userData.dob,
+        dob: new Date(userData.dob).toISOString().split("T")[0],
         image: userData.image,
       });
       setNewFormData({
         phone: userData.phone,
-        dob: new Date(userData.dob).toISOString().split("T")[0],
+        dob: userData.dob,
         image: null,
       });
     }
@@ -50,13 +50,7 @@ const UpdateProfilePage = () => {
     e.preventDefault();
     setLoading(true);
 
-    if (!newFormData.dob && !newFormData.image && !newFormData.phone) {
-      toast.error("Please fill at least one field to update your profile."); // Use toast for alerts
-      return;
-    }
-
     const formDataToSend = new FormData();
-
     if (newFormData.phone) {
       formDataToSend.append("phone", newFormData.phone);
     } else {
@@ -73,6 +67,16 @@ const UpdateProfilePage = () => {
       formDataToSend.append("image", userData.image);
     }
 
+    if (
+      newFormData.dob === userData.dob &&
+      newFormData.phone === userData.phone &&
+      newFormData.image == null
+    ) {
+      setLoading(false);
+      toast.error("Please fill at least one field to update your profile.");
+      return;
+    }
+
     try {
       const response = await axios.put(
         "http://localhost:4000/api/v1/user/updateProfile",
@@ -83,7 +87,6 @@ const UpdateProfilePage = () => {
         }
       );
       setUserData(response.data.user);
-      // console.log("Profile updated successfully:", response.data.message);
       toast.success(response.data.message);
       navigate("/my-profile");
     } catch (error) {

@@ -6,7 +6,6 @@ import axios from "axios";
 import { IoIosArrowDown } from "react-icons/io";
 import { toast } from "react-toastify";
 
-
 const Navbar = () => {
   const { userData, setUserData } = useContext(StoreContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -39,21 +38,25 @@ const Navbar = () => {
 
   return (
     <nav className="bg-gray-300 p-3 shadow-lg fixed w-full top-0 z-50">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex justify-between items-center h-10">
         {/* Left Side - Home Link */}
-        <div className="pl-6">
-          <Link to="/" className="text-gray-800 font-medium text-lg">
+        <div className="pr-10 mr-16">
+          <Link
+            to="/"
+            className="text-gray-800 font-semibold text-lg hover:text-blue-500 transition duration-300 ease-in-out transform hover:scale-105 hover:underline"
+          >
             Home
           </Link>
         </div>
 
+
         {/* Center - Logo */}
-        <div className="absolute right-[44%] transform translate-x-1/2">
+        <div className="flex  justify-center items-center pl-6 ml-20 w-[200px] h-16">
+
           <Link to="/">
-            <div>
-              <img src={logo} alt="Logo" width="45%" />
-            </div>
+            <img src={logo} alt="Logo" className="" />
           </Link>
+
         </div>
 
         {/* Right Side - Links */}
@@ -121,7 +124,7 @@ const Navbar = () => {
                         : "/employee/dashboard"
                     }
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                    onClick={() => setDropdownOpen(false)} 
+                    onClick={() => setDropdownOpen(false)}
                   >
                     Dashboard
                   </Link>

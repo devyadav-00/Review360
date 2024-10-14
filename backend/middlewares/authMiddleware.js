@@ -10,6 +10,12 @@ const authenticateUser = async (req, res, next) => {
       const payload = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(payload._id).select('-password');
 
+      if (req.user.managed_by !== null) {
+        const manager = await User.findById(req.user.managed_by).select('firstname lastname _id');
+        req.user.managed_by = manager;
+      }  
+    
+
       // req.user = payload;
       
       if (!req.user) {

@@ -101,6 +101,10 @@ const employeeLogin = async (req, res) => {
                 message:"User not Register, Register before login"
             });
         }
+        if (user.managed_by !== null) {
+            const manager = await User.findById(user.managed_by).select('firstname lastname _id');
+            user.managed_by = manager;
+        }
         const payload = {
             email:user.email,
             _id:user._id,
@@ -156,11 +160,17 @@ const employeeLogout = (req, res) => {
 };
 
 
-const userData = (req, res) => {
+const userData = async (req, res) => {
+    // const user = req.user;
+    // if (user.managed_by !== null) {
+    //     const manager = await User.findById(user.managed_by).select('firstname lastname _id');
+    //     user.managed_by = manager;
+    // }
     res.status(200).json(
         req.user
     )
 }
+
 
 // Controller to get all managers
 const getManagers = async (req, res) => {
@@ -200,11 +210,12 @@ const getTeamMembers = async (req, res) => {
 
   const employeeUpdateProfile = async (req, res) => {
     try {
-        const userId = req.user._id;
+        // const userId = req.user._id;
+        const user = req.user;
         const { dob, phone } = req.body;
 
         // Find the user by ID
-        const user = await User.findById(userId);
+        // const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -213,15 +224,15 @@ const getTeamMembers = async (req, res) => {
         }
 
         // Update the user's fields
-        user.dob = dob || user.dob;
-        user.phone = phone || user.phone;
+        user.dob = dob;
+        user.phone = phone;
 
         // Handle image upload if a new file is provided
         let imageUrl = user.image; // Keep the existing image URL if no new image is uploaded
         if (req.file) {
             try {
                 const localFilePath = req.file.path;
-                imageUrl = await uploadOnCloudinary(localFilePath); // Upload to Cloudinary and get URL
+                imageUrl = await uploadOnCloudinary(localFilePath);
                 if (!imageUrl) {
                     throw new Error("Upload failed");
                 }
