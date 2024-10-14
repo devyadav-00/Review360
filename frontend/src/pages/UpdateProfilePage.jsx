@@ -158,7 +158,7 @@ const UpdateProfilePage = () => {
               type="date"
               name="dob"
               id="dob"
-              value={newFormData.dob}
+              value={newFormData.dob.toString().split("T")[0]}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md p-2"
             />

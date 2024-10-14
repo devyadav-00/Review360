@@ -40,7 +40,7 @@ const Navbar = () => {
     <nav className="bg-gray-300 p-3 shadow-lg fixed w-full top-0 z-50">
       <div className="container mx-auto flex justify-between items-center h-10">
         {/* Left Side - Home Link */}
-        <div className="pr-10 mr-16">
+        <div className="pr-10 mr-16 hidden md:block">
           <Link
             to="/"
             className="text-gray-800 font-semibold text-lg hover:text-blue-500 transition duration-300 ease-in-out transform hover:scale-105 hover:underline"
@@ -51,7 +51,7 @@ const Navbar = () => {
 
 
         {/* Center - Logo */}
-        <div className="flex  justify-center items-center pl-6 ml-20 w-[200px] h-16">
+        <div className="flex justify-start md:justify-center items-center  pl-6 ml-20 w-[200px] h-16">
 
           <Link to="/">
             <img src={logo} alt="Logo" className="" />
@@ -63,13 +63,13 @@ const Navbar = () => {
         <div className="flex justify-center items-center pr-6 space-x-4">
           <Link
             to="/about"
-            className="text-gray-800 font-medium text-lg hover:underline"
+            className="text-gray-800 hidden md:block font-medium text-lg hover:underline"
           >
             About Us
           </Link>
           <Link
             to="/contact"
-            className="text-gray-800 font-medium text-lg hover:underline"
+            className="text-gray-800 hidden md:block font-medium text-lg hover:underline"
           >
             Contact Us
           </Link>
@@ -77,9 +77,9 @@ const Navbar = () => {
             <>
               <Link
                 to="/login"
-                className="bg-blue-500 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1"
+                className="bg-blue-500 text-white px-4 py-2 rounded-full font-medium hover:bg-blue-600"
               >
-                Log in
+                Login
               </Link>
 
               <Link
