@@ -92,7 +92,7 @@ const Registration = () => {
           <Loading />
         </div>
       )}
-      <div className="min-h-screen flex justify-center items-center bg-gray-400 pt-20 pb-4">
+      <div className="min-h-screen flex justify-center items-center bg-gray-400 pt-16 md:pt-20 md:pb-4">
         <div className="container max-w-md p-8 bg-blue-200 shadow-lg rounded-lg">
           <h2 className="text-center text-2xl font-bold mb-6">Register</h2>
 

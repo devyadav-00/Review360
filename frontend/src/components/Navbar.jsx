@@ -49,15 +49,18 @@ const Navbar = () => {
           </Link>
         </div>
 
-
         {/* Center - Logo */}
-        <div className="flex justify-start md:justify-center items-center  pl-6 ml-20 w-[200px] h-16">
-
+        <div className="flex items-center w-32  justify-start md:justify-center md:w-[200px] h-16 md:items-center pl-6 md:ml-20">
           <Link to="/">
             <img src={logo} alt="Logo" className="" />
           </Link>
-
         </div>
+
+        {/* <div className="flex items-center justify-start md:justify-center md:items-center  pl-6 ml-20 md:w-[200px] h-16">
+          <Link to="/">
+            <img src={logo} alt="Logo" className="" />
+          </Link>
+        </div> */}
 
         {/* Right Side - Links */}
         <div className="flex justify-center items-center pr-6 space-x-4">
