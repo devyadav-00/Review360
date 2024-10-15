@@ -66,7 +66,7 @@ const HomePage = () => {
 
         {/* Call to Action Button at the bottom */}
         {!userData && (
-          <div className="mt-auto animate-bounce lg:mt-48 md:mt-40 sm:mt-10 sm:pb-10 mb-4 lg:mb-16">
+          <div className="mt-auto animate-bounce lg:mt-48 md:mt-40 sm:mt-10 sm:pb-10 mb-4 lg:mb-8">
             <a
               href="/login"
               className="text-white bg-gradient-to-r from-blue-600 to-blue-400 px-8 py-3 rounded-full font-semibold text-lg transform hover:bg-gradient-to-r hover:from-blue-700 hover:to-blue-500 hover:scale-105 transition-transform duration-500 ease-in-out shadow-lg hover:shadow-gray-400"
