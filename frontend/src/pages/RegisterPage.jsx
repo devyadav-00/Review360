@@ -28,7 +28,7 @@ const Registration = () => {
   useEffect(() => {
     const fetchManagers = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/v1/user/managers'); 
+        const response = await axios.get('https://review360-backend.onrender.com/api/v1/user/managers'); 
         setManagers(response.data);
       } catch (error) {
         console.error('Failed to fetch managers:', error.response ? error.response.data : error.message);
@@ -67,7 +67,7 @@ const Registration = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/user/signup', formDataToSend, {
+      const response = await axios.post('https://review360-backend.onrender.com/api/v1/user/signup', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

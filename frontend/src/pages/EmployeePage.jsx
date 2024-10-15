@@ -20,7 +20,7 @@ const EmployeePage = () => {
     const fetchAverageRating = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/rating/me",
+          "https://review360-backend.onrender.com/api/v1/rating/me",
           { withCredentials: true }
         );
         setAverageRating(response.data.averageRating);

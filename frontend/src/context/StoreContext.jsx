@@ -10,14 +10,14 @@ const StoreContextProvider = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/v1/user/profile", {
+      .get("https://review360-backend.onrender.com/api/v1/user/profile", {
         withCredentials: true,
       })
       .then((profileData) => {
         if (profileData) {
           setToken(true);
           setUserData(profileData.data);
-          // console.log(profileData.data);
+          console.log(profileData.data);
           
         }
       })

@@ -18,7 +18,7 @@ const ManagerPage = () => {
     const fetchRatings = async () => {
       try {
         const employeeResponse = await axios.get(
-          "http://localhost:4000/api/v1/rating/allRatings",
+          "https://review360-backend.onrender.com/api/v1/rating/allRatings",
           { withCredentials: true }
         );
         setEmployeeRatings(employeeResponse.data);

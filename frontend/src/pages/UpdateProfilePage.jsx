@@ -79,7 +79,7 @@ const UpdateProfilePage = () => {
 
     try {
       const response = await axios.put(
-        "http://localhost:4000/api/v1/user/updateProfile",
+        "https://review360-backend.onrender.com/api/v1/user/updateProfile",
         formDataToSend,
         {
           withCredentials: true,

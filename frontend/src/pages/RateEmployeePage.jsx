@@ -17,7 +17,7 @@ const RateEmployeePage = () => {
     const fetchEmployees = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/user/teamMembers",
+          "https://review360-backend.onrender.com/api/v1/user/teamMembers",
           {
             withCredentials: true,
           }
@@ -59,7 +59,7 @@ const RateEmployeePage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/v1/rating/create",
+        "https://review360-backend.onrender.com/api/v1/rating/create",
         {
           ratedEmployee: selectedEmployee,
           ratingValue,
