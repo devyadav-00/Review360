@@ -123,7 +123,7 @@ const employeeLogin = async (req, res) => {
             const options = {
                 expires: new Date(Date.now() + 2*60*60*1000), 
                 httpOnly: true,
-                // sameSite: 'None', 
+                sameSite: 'None', 
                 secure: true 
             };
             res.cookie("token", token, options)
@@ -159,7 +159,7 @@ const employeeLogout = (req, res) => {
     const options = {
         expires: new Date(Date.now() + 2*60*60*1000), 
         httpOnly: true,
-        // sameSite: 'None', 
+        sameSite: 'None', 
         secure: true 
     };
     res.clearCookie('token', options);
