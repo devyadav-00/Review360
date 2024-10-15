@@ -10,7 +10,7 @@ const app = express();
 
 
 let corsOptions = {
-  origin: ['http://localhost:3000'],
+  origin: ['https://review360-frontend.onrender.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
   credentials: true,
