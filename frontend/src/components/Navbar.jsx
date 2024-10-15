@@ -50,7 +50,7 @@ const Navbar = () => {
         </div>
 
         {/* Center - Logo */}
-        <div className="flex items-center w-32  justify-start md:justify-center md:w-[200px] h-16 md:items-center pl-6 md:ml-20">
+        <div className="flex items-center w-32  justify-start md:justify-center md:w-[200px] h-16 md:items-center lg:pl-6 lg:ml-20">
           <Link to="/">
             <img src={logo} alt="Logo" className="" />
           </Link>
@@ -66,13 +66,13 @@ const Navbar = () => {
         <div className="flex justify-center items-center pr-6 space-x-4">
           <Link
             to="/about"
-            className="text-gray-800 hidden md:block font-medium text-lg hover:underline"
+            className="text-gray-800 hidden lg:block font-medium text-lg hover:underline"
           >
             About Us
           </Link>
           <Link
             to="/contact"
-            className="text-gray-800 hidden md:block font-medium text-lg hover:underline"
+            className="text-gray-800 hidden lg:block font-medium text-lg hover:underline"
           >
             Contact Us
           </Link>

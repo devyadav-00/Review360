@@ -39,14 +39,14 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center pt-16 h-screen bg-gray-100 text-center px-6">
-      <div className="max-w-3xl bg-white p-8 rounded-lg shadow-md w-full">
-        <h1 className="text-4xl font-bold mb-6 text-gray-800">Contact Us</h1>
-        <p className="text-lg text-gray-700 mb-8">
+    <div className="flex flex-col items-center justify-center pt-16 h-[110vh] sm:h-screen bg-gray-100 text-center px-6">
+      <div className="max-w-3xl bg-white   p-8 rounded-xl sm:rounded-lg shadow-md w-full">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-gray-800">Contact Us</h1>
+        <p className="sm:text-lg text-gray-700 mb-8">
           Have any questions or feedback? We'd love to hear from you! Fill out
           the form below and we'll get back to you as soon as possible.
         </p>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-6">
           <div>
             <input
               type="text"
@@ -55,7 +55,7 @@ const ContactUs = () => {
               onChange={handleChange}
               placeholder="Your Name"
               required
-              className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-2 sm:px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
@@ -66,7 +66,7 @@ const ContactUs = () => {
               onChange={handleChange}
               placeholder="Your Email"
               required
-              className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-2 sm:px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
@@ -77,13 +77,13 @@ const ContactUs = () => {
               placeholder="Your Message"
               rows="5"
               required
-              className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-2 sm:px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             ></textarea>
           </div>
           <div>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition duration-300"
+              className="bg-blue-500 text-white px-4 sm:px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition duration-300"
             >
               Send Message
             </button>

@@ -19,14 +19,14 @@ const ProfilePage = () => {
   
 
   return (
-    <div className="flex items-center relative justify-center h-screen pt-14">
+    <div className="flex items-center relative justify-center h-[120vh] sm:h-screen pt-14">
       {loading && (
         <div className="absolute w-full z-10">
           <Loader />
         </div>
       )}
       {!loading && (
-        <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 border-t-4 border-indigo-500 transition-transform transform hover:scale-105 hover:shadow-xl">
+        <div className="max-w-2xl sm:mx-auto bg-white shadow-lg rounded-lg  p-6 border-t-4 border-indigo-500 transition-transform transform hover:scale-105 hover:shadow-xl">
           {/* Added hover effects */}
           <div className="text-center mb-6">
             <img
