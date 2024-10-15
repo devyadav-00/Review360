@@ -156,7 +156,13 @@ const employeeLogin = async (req, res) => {
 
 
 const employeeLogout = (req, res) => {
-    res.clearCookie('token');
+    const options = {
+        expires: new Date(Date.now() + 2*60*60*1000), 
+        httpOnly: true,
+        // sameSite: 'None', 
+        secure: true 
+    };
+    res.clearCookie('token', options);
     res.status(200).json({ message: 'Logged out successfully.' });
 };
 
